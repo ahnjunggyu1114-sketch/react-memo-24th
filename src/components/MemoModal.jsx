@@ -1,11 +1,23 @@
 import X from '../assets/X.svg';
 import Edit from '../assets/Edit.svg';
 import Trash from '../assets/Trash.svg';
+import { useEffect } from 'react';
 
 import { TAG_COLORS } from '../constants/tagColors';
 
 function MemoModal({ memo, onClose }) {
   const { title, content, tag, date } = memo;
+
+  {
+    /* 모달이 열릴 때 body 스크롤 방지 */
+  }
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, []);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#001B51]/50">
@@ -50,7 +62,7 @@ function MemoModal({ memo, onClose }) {
         </div>
 
         {/* 본문 */}
-        <p className="mt-[32px] text-[18px] leading-[28px] font-medium">
+        <p className="mt-[32px] mb-[10px] min-h-0 flex-1 overflow-y-auto text-[18px] leading-[28px] font-medium">
           {content}
         </p>
 
