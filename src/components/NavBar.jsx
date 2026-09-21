@@ -24,7 +24,7 @@ function Navbar({ selectedTag, onTagChange, onSearch }) {
   return (
     <nav className="flex h-[80px] w-full items-center gap-[16px]">
       {/* 왼쪽 검색 영역 */}
-      <div className="flex h-full flex-1 items-center gap-[12px] rounded-[28px] bg-[#FAFAFA] p-[16px]">
+      <div className="flex h-full  min-w-[380px] flex-1 items-center gap-[12px] rounded-[28px] bg-[#FAFAFA] p-[16px]">
         <div className="relative shrink-0">
           <button
             className={`flex h-[48px] cursor-pointer shrink-0 items-center  rounded-[36px] bg-[#E4EDFF] ${
@@ -97,7 +97,7 @@ function Navbar({ selectedTag, onTagChange, onSearch }) {
 
         <form
           onSubmit={handleSearch}
-          className="flex min-w-0 flex-1 items-center gap-[12px]"
+          className="flex min-w-[220px] flex-1 items-center gap-[12px]"
         >
           <input
             type="text"
