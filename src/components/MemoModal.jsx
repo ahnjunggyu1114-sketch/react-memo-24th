@@ -15,9 +15,15 @@ function MemoModal({ memo, onClose }) {
       >
         {/* 제목 + 닫기 */}
         <div className="flex items-start justify-between">
-          <div className="text-[32px] leading-[40px] font-bold">{title}</div>
+          <div className="min-w-0 text-[32px] leading-[40px] font-bold">
+            {title}
+          </div>
 
-          <button type="button" onClick={onClose} className="cursor-pointer">
+          <button
+            type="button"
+            onClick={onClose}
+            className="shrink-0 cursor-pointer"
+          >
             <img src={X} alt="닫기" className="h-[32px] w-[32px]" />
           </button>
         </div>

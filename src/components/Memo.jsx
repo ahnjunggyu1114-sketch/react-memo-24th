@@ -19,7 +19,9 @@ function Memo({
       onClick={() => onMemoClick(memoId)}
     >
       <div className="flex items-start justify-between">
-        <h2 className="text-[20px] leading-[28px] font-bold">{title}</h2>
+        <h2 className="text-[20px] line-clamp-1 leading-[28px] font-bold">
+          {title}
+        </h2>
 
         <button
           type="button"
