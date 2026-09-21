@@ -1,7 +1,8 @@
-import X from '../assets/X.svg';
+import { useEffect, useRef } from 'react';
+
 import Edit from '../assets/Edit.svg';
 import Trash from '../assets/Trash.svg';
-import { useEffect, useRef } from 'react';
+import X from '../assets/X.svg';
 import { TAG_COLORS } from '../constants/tagColors';
 
 function MemoModal({ memo, onClose }) {

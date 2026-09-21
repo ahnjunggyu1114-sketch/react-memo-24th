@@ -1,12 +1,12 @@
-import NavBar from '../components/NavBar';
+import { useEffect, useState } from 'react';
+
 import EmptyMemo from '../components/EmptyMemo';
+import EmptySearch from '../components/EmptySearch';
 import MemoList from '../components/MemoList';
 import MemoModal from '../components/MemoModal';
-import EmptySearch from '../components/EmptySearch';
+import NavBar from '../components/NavBar';
 // 목데이터로 확인
 import { MockDataMemo } from '../data/MockDataMemo';
-
-import { useState, useEffect } from 'react';
 
 const Home = () => {
   const [memos, setMemos] = useState(() => {

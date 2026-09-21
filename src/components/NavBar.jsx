@@ -1,8 +1,9 @@
-import Plus from '../assets/Plus.svg';
-import Search from '../assets/Search.svg';
-import Profile from '../assets/Profile.svg';
-import Tag from '../assets/Tag.svg';
 import { useState } from 'react';
+
+import Plus from '../assets/Plus.svg';
+import Profile from '../assets/Profile.svg';
+import Search from '../assets/Search.svg';
+import Tag from '../assets/Tag.svg';
 import { TAG_COLORS } from '../constants/tagColors';
 
 function Navbar({ selectedTag, onTagChange, onSearch }) {
