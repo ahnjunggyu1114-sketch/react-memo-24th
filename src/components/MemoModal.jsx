@@ -1,12 +1,27 @@
 import X from '../assets/X.svg';
 import Edit from '../assets/Edit.svg';
 import Trash from '../assets/Trash.svg';
-import { useEffect } from 'react';
-
+import { useEffect, useRef } from 'react';
 import { TAG_COLORS } from '../constants/tagColors';
 
 function MemoModal({ memo, onClose }) {
   const { title, content, tag, date } = memo;
+
+  const dialogRef = useRef(null);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+
+    if (dialog && !dialog.open) {
+      dialog.showModal();
+    }
+
+    return () => {
+      if (dialog?.open) {
+        dialog.close();
+      }
+    };
+  }, []);
 
   {
     /* 모달이 열릴 때 body 스크롤 방지 */
@@ -20,72 +35,75 @@ function MemoModal({ memo, onClose }) {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#001B51]/50">
-      <article
-        className="relative flex h-[556px] w-[556px] flex-col rounded-[20px] px-[44px] py-[40px] text-[#FAFAFA]"
-        style={{ backgroundColor: TAG_COLORS[tag] }}
-      >
-        {/* 제목 + 닫기 */}
-        <div className="flex items-start justify-between">
-          <div className="min-w-0 text-[32px] leading-[40px] font-bold">
-            {title}
-          </div>
-
-          <button
-            type="button"
-            onClick={onClose}
-            className="shrink-0 cursor-pointer"
-          >
-            <img src={X} alt="닫기" className="h-[32px] w-[32px]" />
-          </button>
+    <dialog
+      ref={dialogRef}
+      onCancel={(event) => {
+        event.preventDefault();
+        onClose();
+      }}
+      className="fixed inset-0 m-auto h-[556px] w-[556px] max-h-none max-w-none flex-col rounded-[20px] border-0 px-[44px] py-[40px] text-[#FAFAFA] backdrop:bg-[#001B51]/50 open:flex"
+      style={{ backgroundColor: TAG_COLORS[tag] }}
+    >
+      {/* 제목 + 닫기 */}
+      <div className="flex items-start justify-between">
+        <div className="min-w-0 text-[32px] leading-[40px] font-bold">
+          {title}
         </div>
 
-        {/* 태그 + 날짜 */}
-        <div className="mt-[24px] flex items-center">
-          <div className="flex h-[40px] items-center gap-[12px] rounded-[28px] bg-[#E4EDFF] pr-[24px] pl-[12px]">
-            <span
-              className="h-[20px] w-[20px] rounded-full"
-              style={{ backgroundColor: TAG_COLORS[tag] }}
-            />
+        <button
+          type="button"
+          onClick={onClose}
+          className="shrink-0 cursor-pointer"
+        >
+          <img src={X} alt="닫기" className="h-[32px] w-[32px]" />
+        </button>
+      </div>
 
-            <span
-              className="text-[18px] leading-[28px] font-extrabold"
-              style={{ color: TAG_COLORS[tag] }}
-            >
-              {tag}
-            </span>
-          </div>
+      {/* 태그 + 날짜 */}
+      <div className="mt-[24px] flex items-center">
+        <div className="flex h-[40px] items-center gap-[12px] rounded-[28px] bg-[#E4EDFF] pr-[24px] pl-[12px]">
+          <span
+            className="h-[20px] w-[20px] rounded-full"
+            style={{ backgroundColor: TAG_COLORS[tag] }}
+          />
 
-          <div className="mx-[24px] h-[44px] w-[2px] bg-[#FAFAFA]" />
-
-          <span className="text-[20px] leading-[28px] font-bold">{date}</span>
+          <span
+            className="text-[18px] leading-[28px] font-extrabold"
+            style={{ color: TAG_COLORS[tag] }}
+          >
+            {tag}
+          </span>
         </div>
 
-        {/* 본문 */}
-        <p className="mt-[32px] mb-[10px] min-h-0 flex-1 overflow-y-auto text-[18px] leading-[28px] font-medium">
-          {content}
-        </p>
+        <div className="mx-[24px] h-[44px] w-[2px] bg-[#FAFAFA]" />
 
-        {/* 수정 / 삭제 */}
-        <div className="mt-auto flex justify-end gap-[12px]">
-          <button
-            type="button"
-            className="cursor-pointer"
-            onClick={() => alert('수정 기능은 준비 중입니다.')}
-          >
-            <img src={Edit} alt="메모 수정" className="h-[32px] w-[32px]" />
-          </button>
+        <span className="text-[20px] leading-[28px] font-bold">{date}</span>
+      </div>
 
-          <button
-            type="button"
-            className="cursor-pointer"
-            onClick={() => alert('삭제 기능은 준비 중입니다.')}
-          >
-            <img src={Trash} alt="메모 삭제" className="h-[32px] w-[32px]" />
-          </button>
-        </div>
-      </article>
-    </div>
+      {/* 본문 */}
+      <p className="mt-[32px] mb-[10px] min-h-0 flex-1 overflow-y-auto text-[18px] leading-[28px] font-medium">
+        {content}
+      </p>
+
+      {/* 수정 / 삭제 */}
+      <div className="mt-auto flex justify-end gap-[12px]">
+        <button
+          type="button"
+          className="cursor-pointer"
+          onClick={() => alert('수정 기능은 준비 중입니다.')}
+        >
+          <img src={Edit} alt="메모 수정" className="h-[32px] w-[32px]" />
+        </button>
+
+        <button
+          type="button"
+          className="cursor-pointer"
+          onClick={() => alert('삭제 기능은 준비 중입니다.')}
+        >
+          <img src={Trash} alt="메모 삭제" className="h-[32px] w-[32px]" />
+        </button>
+      </div>
+    </dialog>
   );
 }
 

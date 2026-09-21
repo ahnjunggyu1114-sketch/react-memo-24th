@@ -17,6 +17,14 @@ function Memo({
       className="flex h-[285px] w-[285px] flex-col rounded-[20px] px-[20px] py-[12px] text-[#FAFAFA]"
       style={{ backgroundColor: TAG_COLORS[tag] }}
       onClick={() => onMemoClick(memoId)}
+      tabIndex={0}
+      onKeyDown={(event) => {
+        if (event.target !== event.currentTarget) return;
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          onMemoClick(memoId);
+        }
+      }}
     >
       <div className="flex items-start justify-between">
         <h2 className="text-[20px] line-clamp-1 leading-[28px] font-bold">
