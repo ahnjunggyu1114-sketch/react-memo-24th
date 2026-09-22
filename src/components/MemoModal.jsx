@@ -1,14 +1,15 @@
 import { useEffect, useRef } from 'react';
 
-import Edit from '../assets/Edit.svg';
-import Trash from '../assets/Trash.svg';
-import X from '../assets/X.svg';
 import { TAG_COLORS } from '../constants/tagColors';
+import EditIcon from './icons/EditIcon';
+import ExitIcon from './icons/ExitIcon';
+import TrashIcon from './icons/TrashIcon';
 
 function MemoModal({ memo, onClose }) {
   const { title, content, tag, date } = memo;
 
   const dialogRef = useRef(null);
+  4;
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -56,7 +57,7 @@ function MemoModal({ memo, onClose }) {
           onClick={onClose}
           className="shrink-0 cursor-pointer"
         >
-          <img src={X} alt="닫기" className="h-[32px] w-[32px]" />
+          <ExitIcon className="text-gray-100" />
         </button>
       </div>
 
@@ -93,7 +94,7 @@ function MemoModal({ memo, onClose }) {
           className="cursor-pointer"
           onClick={() => alert('수정 기능은 준비 중입니다.')}
         >
-          <img src={Edit} alt="메모 수정" className="h-[32px] w-[32px]" />
+          <EditIcon size={32} className="text-gray-100" />
         </button>
 
         <button
@@ -101,7 +102,7 @@ function MemoModal({ memo, onClose }) {
           className="cursor-pointer"
           onClick={() => alert('삭제 기능은 준비 중입니다.')}
         >
-          <img src={Trash} alt="메모 삭제" className="h-[32px] w-[32px]" />
+          <TrashIcon size={32} className="text-gray-100" />
         </button>
       </div>
     </dialog>

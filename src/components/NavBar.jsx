@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-import Plus from '../assets/Plus.svg';
-import Profile from '../assets/Profile.svg';
-import Search from '../assets/Search.svg';
-import Tag from '../assets/Tag.svg';
 import { TAG_COLORS } from '../constants/tagColors';
+import PlusIcon from './icons/PlusIcon';
+import ProfileIcon from './icons/ProfileIcon';
+import SearchIcon from './icons/SearchIcon';
+import TagIcon from './icons/TagIcon';
 
 function Navbar({ selectedTag, onTagChange, onSearch }) {
   // 태그 선택 상태
@@ -40,8 +40,7 @@ function Navbar({ selectedTag, onTagChange, onSearch }) {
                 <span className=" text-[16px] leading-[24px] font-extrabold text-[#001B51]">
                   태그 선택
                 </span>
-
-                <img src={Tag} alt="" />
+                <TagIcon className="text-blue-700" />
               </>
             ) : (
               <>
@@ -108,8 +107,12 @@ function Navbar({ selectedTag, onTagChange, onSearch }) {
             className="min-w-0 flex-1 bg-transparent outline-none"
           />
 
-          <button type="submit" className="shrink-0 cursor-pointer">
-            <img src={Search} alt="검색" />
+          <button
+            type="submit"
+            aria-label="검색"
+            className="shrink-0 cursor-pointer"
+          >
+            <SearchIcon className="text-blue-700" />
           </button>
         </form>
       </div>
@@ -118,17 +121,19 @@ function Navbar({ selectedTag, onTagChange, onSearch }) {
       <div className="flex gap-[10px]">
         {/* + 버튼 */}
         <button
+          aria-label="메모 추가"
           className="flex h-[80px] w-[80px] cursor-pointer items-center justify-center rounded-[40px] bg-[#FAFAFA] p-[24px]"
           onClick={() => alert('메모 추가 기능은 준비 중입니다.')}
         >
-          <img src={Plus} alt="메모 추가" />
+          <PlusIcon className="text-blue-700" />
         </button>
         {/* 사람 버튼 */}
         <button
+          aria-label="프로필"
           className="flex h-[80px] w-[80px] cursor-pointer items-center justify-center rounded-[40px] bg-[#FAFAFA] p-[24px]"
           onClick={() => alert('프로필 기능은 준비 중입니다.')}
         >
-          <img src={Profile} alt="프로필" />
+          <ProfileIcon className="text-blue-700" />
         </button>
       </div>
     </nav>

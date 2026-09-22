@@ -1,6 +1,5 @@
-import Star from '../assets/Star.svg';
-import StarRed from '../assets/Star_red.svg';
 import { TAG_COLORS } from '../constants/tagColors';
+import StarIcon from './icons/StarIcon';
 
 function Memo({
   memoId,
@@ -33,16 +32,14 @@ function Memo({
 
         <button
           type="button"
+          aria-label={isImportant ? '중요 메모 해제' : '중요 메모 설정'}
           className="shrink-0 cursor-pointer"
           onClick={(event) => {
             event.stopPropagation(); // 나중에 모달 생성과 충돌할까봐 넣어 놨습니다. (지금 당장은 의미 없음 ㅇㅅㅇ)
             onToggleImportant(memoId);
           }}
         >
-          <img
-            src={isImportant ? StarRed : Star}
-            alt={isImportant ? '중요 메모' : '일반 메모'}
-          />
+          <StarIcon className={isImportant ? 'text-point' : 'text-gray-100'} />
         </button>
       </div>
 
