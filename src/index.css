@@ -2,6 +2,60 @@
 
 @import 'tailwindcss';
 
+@theme {
+  /* Blue */
+  --color-blue-100: #dde9ff;
+  --color-blue-200: #c5d9ff;
+  --color-blue-300: #a2c1ff;
+  --color-blue-400: #5590ff;
+  --color-blue-500: #0055f5;
+  --color-blue-600: #0037a3;
+  --color-blue-700: #001b51;
+
+  /* Grayscale */
+  --color-gray-100: #fafafa;
+  --color-gray-200: #e0eeff;
+  --color-gray-300: #a6b7cb;
+  --color-gray-400: #677b93;
+  --color-gray-500: #485668;
+  --color-gray-600: #29313c;
+  --color-gray-700: #121416;
+
+  /* Point */
+  --color-point: #ff5656;
+
+  /* Typography */
+  --text-display-large: 48px;
+  --text-display-large--line-height: 56px;
+
+  --text-heading-large: 32px;
+  --text-heading-large--line-height: 40px;
+
+  --text-heading-medium: 24px;
+  --text-heading-medium--line-height: 32px;
+
+  --text-heading-small: 20px;
+  --text-heading-small--line-height: 28px;
+
+  --text-body-large: 18px;
+  --text-body-large--line-height: 28px;
+
+  --text-body-medium: 16px;
+  --text-body-medium--line-height: 24px;
+
+  --text-body-small: 14px;
+  --text-body-small--line-height: 20px;
+
+  --text-field-medium: 16px;
+  --text-field-medium--line-height: 24px;
+
+  --text-action-medium: 16px;
+  --text-action-medium--line-height: 24px;
+
+  --text-action-small: 16px;
+  --text-action-small--line-height: 24px;
+}
+
 body {
   font-family: Pretendard, sans-serif;
 }
