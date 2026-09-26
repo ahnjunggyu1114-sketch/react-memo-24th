@@ -1,22 +1,30 @@
-import Plus from '../assets/Plus.svg';
-import Search from '../assets/Search.svg';
-import Profile from '../assets/Profile.svg';
-import Tag from '../assets/Tag.svg';
-import { useState } from 'react';
-import { TAG_COLORS } from '../constants/tagColors';
+import { type SubmitEvent, useState } from 'react';
 
-function Navbar({ selectedTag, onTagChange, onSearch }) {
+import { TAG_COLORS } from '../constants/tagColors';
+import type { TagFilter } from '../types/memo';
+import PlusIcon from './icons/PlusIcon';
+import ProfileIcon from './icons/ProfileIcon';
+import SearchIcon from './icons/SearchIcon';
+import TagIcon from './icons/TagIcon';
+
+interface NavBarProps {
+  selectedTag: TagFilter;
+  onTagChange: (tag: TagFilter) => void;
+  onSearch: (query: string) => void;
+}
+
+function Navbar({ selectedTag, onTagChange, onSearch }: NavBarProps) {
   // 태그 선택 상태
   const [isTagOpen, setIsTagOpen] = useState(false);
   // 검색어 입력 상태
   const [searchInput, setSearchInput] = useState('');
 
-  const handleTagSelect = (tag) => {
+  const handleTagSelect = (tag: TagFilter) => {
     onTagChange(tag);
     setIsTagOpen(false);
   };
 
-  const handleSearch = (event) => {
+  const handleSearch = (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     onSearch(searchInput);
   };
@@ -24,7 +32,7 @@ function Navbar({ selectedTag, onTagChange, onSearch }) {
   return (
     <nav className="flex h-[80px] w-full items-center gap-[16px]">
       {/* 왼쪽 검색 영역 */}
-      <div className="flex h-full flex-1 items-center gap-[12px] rounded-[28px] bg-[#FAFAFA] p-[16px]">
+      <div className="flex h-full  min-w-[380px] flex-1 items-center gap-[12px] rounded-[28px] bg-[#FAFAFA] p-[16px]">
         <div className="relative shrink-0">
           <button
             className={`flex h-[48px] cursor-pointer shrink-0 items-center  rounded-[36px] bg-[#E4EDFF] ${
@@ -39,8 +47,7 @@ function Navbar({ selectedTag, onTagChange, onSearch }) {
                 <span className=" text-[16px] leading-[24px] font-extrabold text-[#001B51]">
                   태그 선택
                 </span>
-
-                <img src={Tag} alt="" />
+                <TagIcon className="text-blue-700" />
               </>
             ) : (
               <>
@@ -97,7 +104,7 @@ function Navbar({ selectedTag, onTagChange, onSearch }) {
 
         <form
           onSubmit={handleSearch}
-          className="flex min-w-0 flex-1 items-center gap-[12px]"
+          className="flex min-w-[220px] flex-1 items-center gap-[12px]"
         >
           <input
             type="text"
@@ -107,8 +114,12 @@ function Navbar({ selectedTag, onTagChange, onSearch }) {
             className="min-w-0 flex-1 bg-transparent outline-none"
           />
 
-          <button type="submit" className="shrink-0 cursor-pointer">
-            <img src={Search} alt="검색" />
+          <button
+            type="submit"
+            aria-label="검색"
+            className="shrink-0 cursor-pointer"
+          >
+            <SearchIcon className="text-blue-700" />
           </button>
         </form>
       </div>
@@ -117,17 +128,19 @@ function Navbar({ selectedTag, onTagChange, onSearch }) {
       <div className="flex gap-[10px]">
         {/* + 버튼 */}
         <button
+          aria-label="메모 추가"
           className="flex h-[80px] w-[80px] cursor-pointer items-center justify-center rounded-[40px] bg-[#FAFAFA] p-[24px]"
           onClick={() => alert('메모 추가 기능은 준비 중입니다.')}
         >
-          <img src={Plus} alt="메모 추가" />
+          <PlusIcon className="text-blue-700" />
         </button>
         {/* 사람 버튼 */}
         <button
+          aria-label="프로필"
           className="flex h-[80px] w-[80px] cursor-pointer items-center justify-center rounded-[40px] bg-[#FAFAFA] p-[24px]"
           onClick={() => alert('프로필 기능은 준비 중입니다.')}
         >
-          <img src={Profile} alt="프로필" />
+          <ProfileIcon className="text-blue-700" />
         </button>
       </div>
     </nav>

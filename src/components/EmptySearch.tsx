@@ -1,4 +1,4 @@
-import Search from '../assets/Search_white.svg';
+import SearchIcon from './icons/SearchIcon';
 
 function EmptySearch() {
   return (
@@ -6,7 +6,7 @@ function EmptySearch() {
       <div className="flex flex-col items-center">
         {/* 검색 아이콘 */}
         <div className="flex h-[96px] w-[96px] items-center justify-center rounded-[48px] bg-[#001B51]">
-          <img src={Search} alt="" />
+          <SearchIcon className="text-gray-100" />
         </div>
 
         {/* 검색 결과 없음 */}

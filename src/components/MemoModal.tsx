@@ -1,0 +1,117 @@
+import { useEffect, useRef } from 'react';
+
+import { TAG_COLORS } from '../constants/tagColors';
+import type { MemoItem } from '../types/memo';
+import EditIcon from './icons/EditIcon';
+import ExitIcon from './icons/ExitIcon';
+import TrashIcon from './icons/TrashIcon';
+
+interface MemoModalProps {
+  memo: MemoItem;
+  onClose: () => void;
+}
+
+function MemoModal({ memo, onClose }: MemoModalProps) {
+  const { title, content, tag, date } = memo;
+
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+
+    if (dialog && !dialog.open) {
+      dialog.showModal();
+    }
+
+    return () => {
+      if (dialog?.open) {
+        dialog.close();
+      }
+    };
+  }, []);
+
+  {
+    /* 모달이 열릴 때 body 스크롤 방지 */
+  }
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, []);
+
+  return (
+    <dialog
+      ref={dialogRef}
+      onCancel={(event) => {
+        event.preventDefault();
+        onClose();
+      }}
+      className="fixed inset-0 m-auto h-[556px] w-[556px] max-h-none max-w-none flex-col rounded-[20px] border-0 px-[44px] py-[40px] text-[#FAFAFA] backdrop:bg-[#001B51]/50 open:flex"
+      style={{ backgroundColor: TAG_COLORS[tag] }}
+    >
+      {/* 제목 + 닫기 */}
+      <div className="flex items-start justify-between">
+        <div className="min-w-0 text-[32px] leading-[40px] font-bold">
+          {title}
+        </div>
+
+        <button
+          type="button"
+          onClick={onClose}
+          className="shrink-0 cursor-pointer"
+        >
+          <ExitIcon className="text-gray-100" />
+        </button>
+      </div>
+
+      {/* 태그 + 날짜 */}
+      <div className="mt-[24px] flex items-center">
+        <div className="flex h-[40px] items-center gap-[12px] rounded-[28px] bg-[#E4EDFF] pr-[24px] pl-[12px]">
+          <span
+            className="h-[20px] w-[20px] rounded-full"
+            style={{ backgroundColor: TAG_COLORS[tag] }}
+          />
+
+          <span
+            className="text-[18px] leading-[28px] font-extrabold"
+            style={{ color: TAG_COLORS[tag] }}
+          >
+            {tag}
+          </span>
+        </div>
+
+        <div className="mx-[24px] h-[44px] w-[2px] bg-[#FAFAFA]" />
+
+        <span className="text-[20px] leading-[28px] font-bold">{date}</span>
+      </div>
+
+      {/* 본문 */}
+      <p className="mt-[32px] mb-[10px] min-h-0 flex-1 overflow-y-auto text-[18px] leading-[28px] font-medium">
+        {content}
+      </p>
+
+      {/* 수정 / 삭제 */}
+      <div className="mt-auto flex justify-end gap-[12px]">
+        <button
+          type="button"
+          className="cursor-pointer"
+          onClick={() => alert('수정 기능은 준비 중입니다.')}
+        >
+          <EditIcon size={32} className="text-gray-100" />
+        </button>
+
+        <button
+          type="button"
+          className="cursor-pointer"
+          onClick={() => alert('삭제 기능은 준비 중입니다.')}
+        >
+          <TrashIcon size={32} className="text-gray-100" />
+        </button>
+      </div>
+    </dialog>
+  );
+}
+
+export default MemoModal;

@@ -1,6 +1,13 @@
+import type { MemoItem } from '../types/memo';
 import Memo from './Memo';
 
-function MemoList({ memos, onToggleImportant, onMemoClick }) {
+interface MemoListProps {
+  memos: MemoItem[];
+  onToggleImportant: (id: number) => void;
+  onMemoClick: (id: number) => void;
+}
+
+function MemoList({ memos, onToggleImportant, onMemoClick }: MemoListProps) {
   return (
     <section className="grid grid-cols-[repeat(4,285px)] justify-center gap-[20px]">
       {memos.map((memo) => (
