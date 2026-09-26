@@ -1,12 +1,12 @@
 import { type SubmitEvent, useState } from 'react';
 import { Link } from 'react-router';
 
-const Login = () => {
-  const [userId, setUserId] = useState('');
+const Signup = () => {
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  // 아이디, 비밀번호 둘 다 입력해야 로그인 버튼 활성화
-  const isFilled = userId.trim() !== '' && password !== '';
+  // 이메일, 비밀번호 둘 다 입력해야 회원가입 버튼 활성화
+  const isFilled = email.trim() !== '' && password !== '';
 
   const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -21,12 +21,12 @@ const Login = () => {
       >
         <div className="flex flex-col gap-[16px]">
           <input
-            type="text"
-            value={userId}
-            onChange={(e) => setUserId(e.target.value)}
-            placeholder="아이디를 입력하세요"
-            aria-label="아이디"
-            autoComplete="username"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="이메일(아이디)을 입력하세요"
+            aria-label="이메일"
+            autoComplete="email"
             className="rounded-[12px] bg-gray-100 px-[20px] py-[16px] text-field-medium text-gray-500 outline-none placeholder:text-gray-300"
           />
 
@@ -34,9 +34,9 @@ const Login = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="비밀번호를 입력하세요"
+            placeholder="비밀번호를 입력하세요 (8자 이상)"
             aria-label="비밀번호"
-            autoComplete="current-password"
+            autoComplete="new-password"
             className="rounded-[12px] bg-gray-100 px-[20px] py-[16px] text-field-medium text-gray-500 outline-none placeholder:text-gray-300"
           />
         </div>
@@ -46,33 +46,15 @@ const Login = () => {
           disabled={!isFilled}
           className="mt-[40px] cursor-pointer rounded-[12px] bg-blue-500 px-[20px] py-[16px] text-action-medium font-bold text-gray-100 disabled:cursor-not-allowed disabled:bg-[#7BA7FF] disabled:text-[#E0E2E5]"
         >
-          로그인
+          회원가입
         </button>
 
-        <div className="mt-[28px] flex items-center justify-center gap-[32px] text-body-small text-gray-400">
-          <Link to="/signup" className="cursor-pointer">
-            회원가입
-          </Link>
-          <span className="h-[20px] w-px bg-gray-400" aria-hidden="true" />
-          <button
-            type="button"
-            className="cursor-pointer"
-            onClick={() => alert('미구현 상태입니다')}
-          >
-            아이디 찾기
-          </button>
-          <span className="h-[20px] w-px bg-gray-400" aria-hidden="true" />
-          <button
-            type="button"
-            className="cursor-pointer"
-            onClick={() => alert('미구현 상태입니다')}
-          >
-            비밀번호 찾기
-          </button>
+        <div className="mt-[28px] flex items-center justify-center text-body-small text-gray-400">
+          <Link to="/login" className="cursor-pointer">로그인</Link>
         </div>
       </form>
     </main>
   );
 };
 
-export default Login;
+export default Signup;
