@@ -1,4 +1,6 @@
-export const MockDataMemo = [
+import type { MemoItem } from '../types/memo';
+
+export const MockDataMemo: MemoItem[] = [
   {
     id: 1,
     title:

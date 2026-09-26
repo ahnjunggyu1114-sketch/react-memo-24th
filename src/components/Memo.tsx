@@ -1,5 +1,17 @@
 import { TAG_COLORS } from '../constants/tagColors';
+import type { Tag } from '../types/memo';
 import StarIcon from './icons/StarIcon';
+
+interface MemoProps {
+  memoId: number;
+  title: string;
+  content: string;
+  tag: Tag;
+  date: string;
+  isImportant: boolean;
+  onToggleImportant: (id: number) => void;
+  onMemoClick: (id: number) => void;
+}
 
 function Memo({
   memoId,
@@ -10,7 +22,7 @@ function Memo({
   isImportant,
   onToggleImportant,
   onMemoClick,
-}) {
+}: MemoProps) {
   return (
     <article
       className="flex h-[285px] w-[285px] flex-col rounded-[20px] px-[20px] py-[12px] text-[#FAFAFA]"

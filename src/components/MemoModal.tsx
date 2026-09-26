@@ -1,15 +1,20 @@
 import { useEffect, useRef } from 'react';
 
 import { TAG_COLORS } from '../constants/tagColors';
+import type { MemoItem } from '../types/memo';
 import EditIcon from './icons/EditIcon';
 import ExitIcon from './icons/ExitIcon';
 import TrashIcon from './icons/TrashIcon';
 
-function MemoModal({ memo, onClose }) {
+interface MemoModalProps {
+  memo: MemoItem;
+  onClose: () => void;
+}
+
+function MemoModal({ memo, onClose }: MemoModalProps) {
   const { title, content, tag, date } = memo;
 
-  const dialogRef = useRef(null);
-  4;
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
     const dialog = dialogRef.current;

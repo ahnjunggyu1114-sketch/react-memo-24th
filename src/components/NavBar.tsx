@@ -1,23 +1,30 @@
-import { useState } from 'react';
+import { type SubmitEvent, useState } from 'react';
 
 import { TAG_COLORS } from '../constants/tagColors';
+import type { TagFilter } from '../types/memo';
 import PlusIcon from './icons/PlusIcon';
 import ProfileIcon from './icons/ProfileIcon';
 import SearchIcon from './icons/SearchIcon';
 import TagIcon from './icons/TagIcon';
 
-function Navbar({ selectedTag, onTagChange, onSearch }) {
+interface NavBarProps {
+  selectedTag: TagFilter;
+  onTagChange: (tag: TagFilter) => void;
+  onSearch: (query: string) => void;
+}
+
+function Navbar({ selectedTag, onTagChange, onSearch }: NavBarProps) {
   // 태그 선택 상태
   const [isTagOpen, setIsTagOpen] = useState(false);
   // 검색어 입력 상태
   const [searchInput, setSearchInput] = useState('');
 
-  const handleTagSelect = (tag) => {
+  const handleTagSelect = (tag: TagFilter) => {
     onTagChange(tag);
     setIsTagOpen(false);
   };
 
-  const handleSearch = (event) => {
+  const handleSearch = (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     onSearch(searchInput);
   };
