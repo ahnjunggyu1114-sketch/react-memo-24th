@@ -1,16 +1,47 @@
 import { type SubmitEvent, useState } from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+
+import { login } from '../apis/auth';
+import { isNetworkError } from '../apis/client';
+import NetworkErrorModal from '../components/NetworkErrorModal';
+import { useAuthStore } from '../stores/authStore';
 
 const Login = () => {
+  const navigate = useNavigate();
+  const setAccessToken = useAuthStore((state) => state.setAccessToken);
+
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
+  // 요청 중 여부 (중복 클릭 방지)
+  const [isLoading, setIsLoading] = useState(false);
+  // 아이디/비밀번호 불일치 문구
+  const [errorMessage, setErrorMessage] = useState('');
+  // 네트워크 에러 모달
+  const [isNetworkErrorOpen, setIsNetworkErrorOpen] = useState(false);
 
   // 아이디, 비밀번호 둘 다 입력해야 로그인 버튼 활성화
   const isFilled = userId.trim() !== '' && password !== '';
 
-  const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
-    alert('미구현 상태입니다');
+    setErrorMessage('');
+
+    setIsLoading(true);
+    try {
+      const { data } = await login({ email: userId.trim(), password });
+      if (data) {
+        setAccessToken(data.accessToken);
+        navigate('/');
+      }
+    } catch (error) {
+      if (isNetworkError(error)) {
+        setIsNetworkErrorOpen(true);
+      } else {
+        setErrorMessage('*아이디 또는 비밀번호가 옳지 않습니다');
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -41,12 +72,21 @@ const Login = () => {
           />
         </div>
 
+        {/* 에러 문구가 떠도 버튼 위치가 안 움직이도록 40px 영역 안에 표시 */}
+        <div className="h-[40px] pt-[4px]">
+          {errorMessage && (
+            <p role="alert" className="text-body-small text-point">
+              {errorMessage}
+            </p>
+          )}
+        </div>
+
         <button
           type="submit"
-          disabled={!isFilled}
-          className="mt-[40px] cursor-pointer rounded-[12px] bg-blue-500 px-[20px] py-[16px] text-action-medium font-bold text-gray-100 disabled:cursor-not-allowed disabled:bg-[#7BA7FF] disabled:text-[#E0E2E5]"
+          disabled={!isFilled || isLoading}
+          className="cursor-pointer rounded-[12px] bg-blue-500 px-[20px] py-[16px] text-action-medium font-bold text-gray-100 disabled:cursor-not-allowed disabled:bg-[#7BA7FF] disabled:text-[#E0E2E5]"
         >
-          로그인
+          {isLoading ? '로그인 중...' : '로그인'}
         </button>
 
         <div className="mt-[28px] flex items-center justify-center gap-[32px] text-body-small text-gray-400">
@@ -71,6 +111,10 @@ const Login = () => {
           </button>
         </div>
       </form>
+
+      {isNetworkErrorOpen && (
+        <NetworkErrorModal onClose={() => setIsNetworkErrorOpen(false)} />
+      )}
     </main>
   );
 };

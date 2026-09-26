@@ -13,6 +13,10 @@ export const client = axios.create({
   timeout: 10000,
 });
 
+// 서버에 닿지 못한 에러인지 (인터넷 끊김, 서버 다운, 타임아웃)
+export const isNetworkError = (error: unknown) =>
+  isAxiosError(error) && !error.response;
+
 // 에러에서 화면에 보여줄 메시지 추출
 export const getErrorMessage = (error: unknown) => {
   if (isAxiosError<ApiResponse<null>>(error)) {
