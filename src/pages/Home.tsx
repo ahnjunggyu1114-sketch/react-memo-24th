@@ -1,15 +1,16 @@
-import NavBar from '../components/NavBar';
+import { useEffect, useState } from 'react';
+
 import EmptyMemo from '../components/EmptyMemo';
+import EmptySearch from '../components/EmptySearch';
 import MemoList from '../components/MemoList';
 import MemoModal from '../components/MemoModal';
-import EmptySearch from '../components/EmptySearch';
+import NavBar from '../components/NavBar';
 // 목데이터로 확인
 import { MockDataMemo } from '../data/MockDataMemo';
-
-import { useState, useEffect } from 'react';
+import type { MemoItem, TagFilter } from '../types/memo';
 
 const Home = () => {
-  const [memos, setMemos] = useState(() => {
+  const [memos, setMemos] = useState<MemoItem[]>(() => {
     const savedMemos = localStorage.getItem('memos');
     return savedMemos ? JSON.parse(savedMemos) : MockDataMemo;
   });
@@ -19,11 +20,11 @@ const Home = () => {
   }, [memos]);
 
   // 네브바의 태그 선택
-  const [selectedTag, setSelectedTag] = useState('All');
+  const [selectedTag, setSelectedTag] = useState<TagFilter>('All');
   // 네브바의 검색어 입력
   const [searchQuery, setSearchQuery] = useState('');
   // 모달 상태 관리
-  const [selectedMemoId, setSelectedMemoId] = useState(null);
+  const [selectedMemoId, setSelectedMemoId] = useState<number | null>(null);
 
   const filteredMemos = memos.filter((memo) => {
     const matchesTag = selectedTag === 'All' || memo.tag === selectedTag;
@@ -38,7 +39,7 @@ const Home = () => {
   });
 
   // 별표 누르는 함수 추가
-  const handleToggleImportant = (id) => {
+  const handleToggleImportant = (id: number) => {
     setMemos((prevMemos) =>
       prevMemos.map((memo) =>
         memo.id === id ? { ...memo, isImportant: !memo.isImportant } : memo

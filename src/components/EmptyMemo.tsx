@@ -1,4 +1,4 @@
-import PlusWhite from '../assets/Plus_white.svg';
+import PlusIcon from './icons/PlusIcon';
 
 function EmptyMemo() {
   return (
@@ -9,7 +9,7 @@ function EmptyMemo() {
           className="flex h-[120px] w-[120px] cursor-pointer items-center justify-center rounded-[75px] bg-[#AAC8FF]"
           aria-label="새 메모 작성"
         >
-          <img src={PlusWhite} alt="" />
+          <PlusIcon className="text-gray-100" />{' '}
         </button>
 
         <p className="text-[24px] leading-[32px] font-semibold text-[#AAC8FF]">
